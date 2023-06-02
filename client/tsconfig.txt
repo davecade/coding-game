@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "module": "CommonJS",
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "isolatedModules": true,
+      "jsx": "react",
+      "lib": ["es2017", "es6", "dom"],
+      "moduleResolution": "node",
+      "noEmit": true,
+      "strict": true,
+      "target": "ESNext",
+      "noImplicitAny": false,
+    },
+    "exclude": [
+      "node_modules",
+      "babel.config.js",
+      "metro.config.js",
+      "jest.config.es"
+    ],
+    "typeRoots": [
+      "../node_modules/@types",
+      "../@types"
+    ]
+}
