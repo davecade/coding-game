@@ -9,13 +9,28 @@
     padding: 1rem;
   }
 
-  .box-header-button {
+  .box-header-run-button {
     background-color: #0046c7;
     color: #ffffff;
     padding: 0 1rem;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 7rem;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .box-header-execute-button {
+    background-color: #008529;
+    color: #ffffff;
+    padding: 0 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 7rem;
 
     &:hover {
       opacity: 0.8;

@@ -25,14 +25,14 @@ function App() {
   return (
     <div className="App">
       <div className="left-side">
-        <BoxHeader title={'Question'} />
+        <BoxHeader title={'Question'} addNavArrows={true} />
         <QuestionBox />
         <div className="spacer"></div>
-        <BoxHeader title={'Output'} />
+        <BoxHeader title={'Output'} addExecute={true} />
         <OutputBox />
       </div>
       <div className="right-side">
-        <BoxHeader title={'Your Solution'} runButton={true} />
+        <BoxHeader title={'Your Solution'} addRun={true} />
         <MyCodeEditor />
       </div>
     </div>

@@ -3,10 +3,11 @@ import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import { OutputAtom } from '../Atoms/Atoms';
 
-const useWebsocket = () => {
+const useWebSocket = () => {
   const [socketClient, setSocketClient] = useState(null);
   const [token, setToken] = useState(null);
   const setOutput = useSetRecoilState(OutputAtom);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchToken();
@@ -44,9 +45,9 @@ const useWebsocket = () => {
           //Unauthorised request
           console.log('Unauthorised request');
         } else {
-          console.log('YUOUuu GAaahtieet >> ', message.body);
           setOutput(message.body);
         }
+        setLoading(false);
       });
     };
     const onWsConnectionFailed = (e) => {
@@ -68,17 +69,24 @@ const useWebsocket = () => {
     connectToWebsocket();
   }, [token]);
 
+  const send = (...args) => {
+    setLoading(true);
+    socketClient.send(...args);
+  };
+
   const fetchToken = async () => {
     const res = await axios.get('http://localhost:3001/token');
     setToken(res.data);
   };
 
   return {
+    send,
     token,
     setToken,
     socketClient,
     setSocketClient,
+    loading,
   };
 };
 
-export default useWebsocket;
+export default useWebSocket;

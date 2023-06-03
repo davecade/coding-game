@@ -1,7 +1,12 @@
 .question-container {
   display: flex;
+  flex-direction: column;
   padding: 1rem;
   width: 100%;
   flex-grow: 1;
   background-color: #001528;
+
+  .question-title {
+    margin-bottom: 1rem;
+  }
 }
