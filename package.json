@@ -16,7 +16,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "start": "npm run start:prod",
-    "start:dev": "nest start --watch",
+    "start:dev": "rimraf dist && nest start --watch",
     "start:prod": "node dist/main",
     "build": "npm run build:client && nest build",
     "build:client": "cd client && npm install && npm run build",
