@@ -6,9 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/questions')
-  async getQuestions() {
-    console.log('GET QUESTIONS >> ', await this.appService.getQuestions());
-    return await this.appService.getQuestions();
+  async getFiveQuestions() {
+    return await this.appService.getFiveQuestions();
   }
 
   @Get('/token')

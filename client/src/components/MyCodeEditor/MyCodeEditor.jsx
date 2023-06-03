@@ -7,20 +7,18 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript'; // Or whatever language you want to support
 import { useRecoilState } from 'recoil';
 import { CodeInputAtom } from '../../Atoms/Atoms';
-import useWebSocket from '../../Utilities/useWebSocket';
+import useWebSocket from '../../Utilities/Hooks/useWebSocket';
 
 function MyCodeEditor() {
   const [language, setLanguage] = useState('');
   const [code, setCode] = useRecoilState(CodeInputAtom);
-  const { send, socketClient } = useWebSocket();
+  const { send } = useWebSocket();
 
   const handleChange = (newCode) => {
     setCode(newCode);
-    if (socketClient && socketClient.connected) {
-      send('/app/execute-ws-api-token', newCode, {
-        message_type: 'input',
-      });
-    }
+    send('/app/execute-ws-api-token', newCode, {
+      message_type: 'input',
+    });
   };
 
   const lineNumbers = code
@@ -29,14 +27,7 @@ function MyCodeEditor() {
     .join('\n');
 
   const highlight = (code) => {
-    return Prism.highlight(
-      code,
-      Prism.languages.javascript,
-      'javascript',
-    ).replace(
-      /<span class="token operator">=/g,
-      '<span class="token operator" style="background-color: transparent;">=',
-    );
+    return Prism.highlight(code, Prism.languages.javascript, 'javascript');
   };
 
   return (

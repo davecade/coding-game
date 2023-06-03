@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import QuestionBox from './components/QuestionBox/QuestionBox';
 import OutputBox from './components/OutputBox/OutputBox';
 import BoxHeader from './components/BoxHeader/BoxHeader';
-import { getQuestions } from './Utilities/Api';
+import { getQuestions } from './Utilities/Api/Api';
 import { useSetRecoilState } from 'recoil';
 import { QuestionsAtom } from './Atoms/Atoms';
 
@@ -25,15 +25,13 @@ function App() {
   return (
     <div className="App">
       <div className="left-side">
-        <BoxHeader title={'Question'} addNavArrows={true} />
         <QuestionBox />
-        <div className="spacer"></div>
-        <BoxHeader title={'Output'} addExecute={true} />
-        <OutputBox />
       </div>
       <div className="right-side">
         <BoxHeader title={'Your Solution'} addRun={true} />
         <MyCodeEditor />
+        <div className="spacer"></div>
+        <OutputBox />
       </div>
     </div>
   );

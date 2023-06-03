@@ -6,9 +6,20 @@ import axios from 'axios';
 export class AppService {
   constructor(public appRepo: AppRepository) {}
 
-  async getQuestions() {
-    const response = await this.appRepo.getAllQuestions();
-    return response;
+  async getFiveQuestions() {
+    const allQuestions = await this.appRepo.getAllQuestions();
+
+    const uniqueIds = new Set();
+    while (uniqueIds.size < 5) {
+      let randomIndex = Math.floor(Math.random() * 10) + 1;
+      uniqueIds.add(randomIndex);
+    }
+
+    const selectedQuestions = Array.from(uniqueIds).map((index) => {
+      return allQuestions.find((question) => question.id === index);
+    });
+
+    return selectedQuestions;
   }
 
   async getToken() {

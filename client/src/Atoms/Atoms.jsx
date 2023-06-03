@@ -6,6 +6,8 @@ const keys = {
   CODE_INPUT: '@atoms_code_input',
   SOCKET_CLIENT: '@atoms_socket_client',
   TOKEN_ATOM: '@atoms_token',
+  CODE_ERROR: '@atoms_code_error',
+  CODE_SUCCESS: '@atoms_code_success'
 };
 
 export const QuestionsAtom = atom({
@@ -21,4 +23,14 @@ export const OutputAtom = atom({
 export const CodeInputAtom = atom({
   key: keys.CODE_INPUT,
   default: '',
+});
+
+export const CodeErrorAtom = atom({
+  key: keys.CODE_ERROR,
+  default: false,
+});
+
+export const CodeSuccessAtom = atom({
+  key: keys.CODE_SUCCESS,
+  default: false,
 });

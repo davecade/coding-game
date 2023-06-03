@@ -1,11 +1,13 @@
 .App {
   display: flex;
   flex-grow: 1;
-  height: 100vh;
+  height: 92vh;
   margin: 2rem;
+  font-family: Ubuntu, Helvetica, Arial, sans-serif;
 
   .left-side {
     width: 100%;
+    max-width: 50%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -18,9 +20,10 @@
 
   .right-side {
     width: 100%;
+    max-width: 50%;
     height: 100%;
-    margin-left: 1rem;
     display: flex;
+    margin-left: 1rem;
     justify-content: center;
     flex-direction: column;
   }

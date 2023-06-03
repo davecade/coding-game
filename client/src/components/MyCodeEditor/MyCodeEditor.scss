@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: flex-start;
   height: 100%;
+  max-height: 70%;
 
   .line-number {
     background-color: #001528;
@@ -27,5 +28,9 @@
     width: 100%;
     color: #ffffff;
     border-radius: 4;
+  }
+
+  .token {
+    background-color: #001528;
   }
 }

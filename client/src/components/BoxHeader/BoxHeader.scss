@@ -36,4 +36,36 @@
       opacity: 0.8;
     }
   }
+
+  .arrows-container {
+    .arrow-left {
+      background-color: #257dbc;
+      color: #ffffff;
+      height: 100%;
+      width: 4rem;
+      border: none;
+      margin-right: 0.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .arrow-right {
+      background-color: #257dbc;
+      color: #ffffff;
+      height: 100%;
+      width: 4rem;
+      border: none;
+      margin-left: 0.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
 }
