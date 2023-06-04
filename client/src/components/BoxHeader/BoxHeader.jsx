@@ -44,7 +44,6 @@ const BoxHeader = ({
     try {
       setLoading(true);
       const response = await submitCode(id, solution);
-      console.log('response >> ', response);
       setQuestions(response);
     } catch (error) {
       console.error(error);

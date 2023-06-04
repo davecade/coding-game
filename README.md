@@ -45,8 +45,6 @@ This endpoint is used for submitting users' code for execution. It communicates 
 
 ## Code Examples
 
-### Running a Code
-
 ## Planned Improvements
 1. **Language Expansion**: I am planning to support more programming languages. This expansion will cater to a diverse range of coding needs, broadening our user base.
 
