@@ -1,14 +1,15 @@
 const solutions = () => {
   const moveZeroes = (nums) => {
-    let pos = 0;
-    for (let i = 0; i < nums.length; i++) {
-      if (nums[i] !== 0) {
-        nums[pos++] = nums[i];
+    let size = nums.length;
+    for (let i = 0; i < size; i++) {
+      if (nums[i] === 0) {
+        nums.splice(i, 1);
+        nums.push(0);
+        i--;
+        size--;
       }
     }
-    for (let i = pos; i < nums.length; i++) {
-      nums[i] = 0;
-    }
+    return nums;
   };
 
   const majorityElement = (nums) => {
@@ -42,25 +43,25 @@ const solutions = () => {
     s = s.split('');
     let start = 0;
     let end = s.length - 1;
-    const regex = /[a-zA-Z]/g; 
+    const regex = /[a-zA-Z]/g;
     while (start < end) {
-        if (s[start].match(regex) === null) {
-            start++; 
-            continue;
-        }
-        if (s[end].match(regex) === null) {
-            end--; 
-            continue;
-        }
-        let tmp = s[start];
-        s[start] = s[end];
-        s[end] = tmp;
+      if (s[start].match(regex) === null) {
         start++;
+        continue;
+      }
+      if (s[end].match(regex) === null) {
         end--;
+        continue;
+      }
+      let tmp = s[start];
+      s[start] = s[end];
+      s[end] = tmp;
+      start++;
+      end--;
     }
-    
+
     return s.join('');
-};
+  };
 
   const missingNumber = (nums) => {
     const n = nums.length;

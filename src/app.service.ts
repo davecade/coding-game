@@ -17,6 +17,7 @@ export class AppService {
 
   private testAllCases(testCases: any, userCode: string, questionId: number) {
     const validSolution = solutions()[questionId];
+    console.log("validSolution", validSolution)
     const expectedResults = [];
 
     try {
@@ -34,7 +35,7 @@ export class AppService {
           `${userFunctionName}(${JSON.stringify(input)})`,
         );
         const expectedOutput = validSolution(input);
-
+        console.log('expectedOutput', expectedOutput);
         if (userOutput !== expectedOutput) {
           hasPassed = false;
           failedCases.push(input);
