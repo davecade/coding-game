@@ -27,7 +27,7 @@ The project utilizes React for the frontend, taking advantage of its flexibility
 
 The frontend of the application is built using React. Each programming question is a separate component. The code editor component uses the react-simple-code-editor library to provide syntax highlighting and other features. It is integrated with JDoodle's websocket and RESTful api's for code execution.
 
-The backend is built using NestJS. It handles user authentication, code execution requests, and provides various RESTful endpoints for retrieving and submitting questions.
+The backend is built using NestJS. It handles code execution requests, and provides various RESTful endpoints for retrieving and submitting questions.
 
 ## API Endpoints
 
