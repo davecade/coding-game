@@ -6,8 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/questions')
-  async getFiveRandomQuestions(@Res() res): Promise<void> {
-    const questions = await this.appService.getFiveRandomQuestions();
+  async getRandomQuestions(@Res() res): Promise<void> {
+    const questions = await this.appService.getRandomQuestions();
     return res.status(HttpStatus.OK).json(questions);
   }
 

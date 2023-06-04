@@ -99,6 +99,7 @@ const MockDatabase = [
     i.e., -2^31 <= x <= 2^31 - 1.
     `,
     testCases: [12345, -12345, 1000000015, 0, -1],
+    failedCases: [],
     solution: '',
     isSolutionCorrect: false,
   },

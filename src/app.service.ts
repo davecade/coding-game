@@ -4,6 +4,7 @@ import axios from 'axios';
 import { VM } from 'vm2';
 import solutions from './utils/solution-utils';
 import { ConfigService } from '@nestjs/config';
+import { Question } from './types/Question';
 
 const NUM_QUESTIONS_TO_SELECT = 5;
 
@@ -57,15 +58,15 @@ export class AppService {
     return result ? result[1] : '';
   }
 
-  async getFiveRandomQuestions() {
+  async getRandomQuestions(): Promise<Question[]> {
     const allQuestions = await this.appRepo.getAllQuestions();
     const uniqueIds = this.getRandomUniqueIds(
       NUM_QUESTIONS_TO_SELECT,
       allQuestions.length,
     );
 
-    const selectedQuestions = allQuestions.filter((question) =>
-      uniqueIds.has(question.id),
+    const selectedQuestions: Question[] = allQuestions.filter(
+      (question: Question) => uniqueIds.has(question.id),
     );
     await this.appRepo.updateSelectedQuestions(selectedQuestions);
 
@@ -88,7 +89,9 @@ export class AppService {
   }
 
   async executeUserCode(questionId: number, userCode: string) {
-    const targetQuestion = await this.appRepo.getQuestionById(questionId);
+    const targetQuestion: Question = await this.appRepo.getQuestionById(
+      questionId,
+    );
     const testCases = targetQuestion.testCases;
     const results = this.testAllCases(testCases, userCode, questionId);
     return results;
@@ -103,7 +106,6 @@ export class AppService {
       failedCases: executionResult.failedCases,
     };
     await this.appRepo.updateQuestion(questionId, payload);
-
     return this.appRepo.getSelectedQuestions();
   }
 
