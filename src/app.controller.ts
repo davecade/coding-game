@@ -14,16 +14,16 @@ export class AppController {
   @Get('/token')
   async getToken(@Res() res): Promise<void> {
     const token = await this.appService.getToken();
-    return token;
+    return res.status(HttpStatus.OK).json(token);
   }
 
   @Post('/submit')
   async submitCode(
     @Res() res,
-    @Body('id') id: number,
+    @Body('questionId') questionId: number,
     @Body('solution') solution: string,
   ): Promise<void> {
-    const result = await this.appService.submitCode(id, solution);
+    const result = await this.appService.submitCode(questionId, solution);
     return res.status(HttpStatus.OK).json(result);
   }
 }
