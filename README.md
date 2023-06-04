@@ -50,6 +50,10 @@ This endpoint is used for submitting users' code for execution. It communicates 
 
 2. **Improved Code Output**: I am working on refining the code output feature to provide more comprehensive troubleshooting support. This will aid users in effectively debugging their code, promoting a smoother coding experience.
 
+3. **User Authentication**: Implementing user authentication, coupled with a MongoDB database to enhance data management efficiency.
+
+4. **JWT Tokens**: Will integrating JWT tokens to elevate the security standards of the API requests.
+
 ## Contact Information
 For further inquiries, please reach out to me at `dave.cadelina@outlook.com`.
 ```
