@@ -32,6 +32,7 @@ export const submitCode = async (questionId, solution) => {
 export const getJdoodleToken = async () => {
   try {
     const response = await axios.get(baseURL + '/token');
+    console.log('TOKEN?? ', response.data);
     return response.data;
   } catch (error) {
     console.error(error);
