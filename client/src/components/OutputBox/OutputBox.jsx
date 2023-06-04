@@ -28,7 +28,7 @@ const OutputBox = () => {
     if (currentQuestion.isSolutionCorrect === true) {
       const results = (
         <div>
-          <p style={{ fontWeight: 'bold' }}>All tests passed!</p>
+          <h2 style={{ fontWeight: 'bold' }}>All tests passed!</h2>
           <br></br>
           <p>Test cases:</p>
           {currentQuestion.testCases.map((testCase, i) => (
@@ -47,9 +47,9 @@ const OutputBox = () => {
     } else {
       const results = (
         <div>
-          <p style={{ fontWeight: 'bold' }}>Test failed!</p>
+          <h2 style={{ fontWeight: 'bold' }}>Test failed!</h2>
           <br></br>
-          <p>Test cases:</p>
+          <p style={{ fontWeight: 'bold' }}>Test cases:</p>
           {currentQuestion.failedCases.map((testCase, i) => (
             <p key={i}>{`[${testCase.toString()}] - failed`}</p>
           ))}
@@ -58,11 +58,15 @@ const OutputBox = () => {
           {currentQuestion.userResults.map((result, i) => (
             <p key={i}>{result}</p>
           ))}
-          <br></br>
-          <p style={{ fontWeight: 'bold' }}>Expected output:</p>
-          {currentQuestion.expectedResults.map((result, i) => (
-            <p key={i}>{result}</p>
-          ))}
+          {currentQuestion?.expectedResults?.length > 0 ? (
+            <>
+              <br></br>
+              <p style={{ fontWeight: 'bold' }}>Expected output:</p>
+              {currentQuestion.expectedResults.map((result, i) => (
+                <p key={i}>{result}</p>
+              ))}
+            </>
+          ) : null}
         </div>
       );
       setOutput(results);
