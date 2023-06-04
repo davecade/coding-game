@@ -5,7 +5,7 @@ let baseURL;
 if (process.env.NODE_ENV === 'development') {
   baseURL = 'http://localhost:3001';
 } else {
-  baseURL = '';
+  baseURL = 'https://mysterious-meadow-53796.herokuapp.com';
 }
 
 export const getQuestions = async () => {
