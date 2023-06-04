@@ -1,47 +1,52 @@
 import { Injectable } from '@nestjs/common';
 import MockDatabase from './models/MockDatabase';
-
-let db = [...MockDatabase];
-let selectedQuestions = [];
+// import { Question } from './models/Question';
 
 @Injectable()
 export class AppRepository {
+  private db = [...MockDatabase];
+  private selectedQuestions = [];
+
   async getAllQuestions() {
-    return db;
+    return this.db;
   }
 
   async getSelectedQuestions() {
-    if (selectedQuestions.length === 0) {
-      return db.filter((item, index) => index < 5);
+    if (this.selectedQuestions.length === 0) {
+      this.selectedQuestions = this.db.slice(0, 5);
     }
-    return selectedQuestions;
+    return this.selectedQuestions;
   }
 
-  async getQuestionById(id) {
-    return db.find((question) => question.id === id);
+  async getQuestionById(id: number) {
+    return this.db.find((question) => question.id === id);
   }
 
   async updateAllQuestions(newQuestions) {
-    db = [...newQuestions];
+    this.db = [...newQuestions];
   }
 
-  async updateSelectedQuestions(newSelectedQuestions) {
-    selectedQuestions = [...newSelectedQuestions];
+  async updateSelectedQuestions(newSelectedQuestions): Promise<void> {
+    this.selectedQuestions = [...newSelectedQuestions];
   }
 
-  async updateQuestion(newQuestion) {
-    const dbIndex = db.findIndex((question) => newQuestion.id === question.id);
-    if (dbIndex !== -1) {
-      db[dbIndex] = newQuestion;
+  async updateQuestion(id: number, payload) {
+    const questionToUpdate = await this.getQuestionById(id);
+    if (!questionToUpdate) {
+      return undefined;
     }
-    const selectedQuestionIndex = selectedQuestions.findIndex(
-      (question) => newQuestion.id === question.id,
+    const updatedQuestion = {
+      ...questionToUpdate,
+      ...payload,
+    };
+
+    this.db = this.db.map((question) =>
+      question.id === updatedQuestion.id ? updatedQuestion : question,
+    );
+    this.selectedQuestions = this.selectedQuestions.map((question) =>
+      question.id === updatedQuestion.id ? updatedQuestion : question,
     );
 
-    if (selectedQuestionIndex !== -1) {
-      selectedQuestions[selectedQuestionIndex] = newQuestion;
-    }
-    this.updateAllQuestions(db);
-    this.updateSelectedQuestions(selectedQuestions);
+    return updatedQuestion;
   }
 }

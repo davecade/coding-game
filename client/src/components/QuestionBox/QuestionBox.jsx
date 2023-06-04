@@ -6,6 +6,7 @@ import {
   CodeInputAtom,
   CodeSuccessAtom,
   CurrentQuestionIndex,
+  OutputAtom,
   QuestionsAtom,
 } from '../../Atoms/Atoms';
 import { unified } from 'unified';
@@ -19,16 +20,18 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 const QuestionBox = () => {
   const [currentIndex, setCurrentIndex] = useRecoilState(CurrentQuestionIndex);
   const questions = useRecoilValue(QuestionsAtom);
+  const currentQuestion = questions[currentIndex] || {};
   const setCode = useSetRecoilState(CodeInputAtom);
   const setSuccess = useSetRecoilState(CodeSuccessAtom);
   const setError = useSetRecoilState(CodeErrorAtom);
-  const currentQuestion = questions[currentIndex] || {};
+  const setOutput = useSetRecoilState(OutputAtom);
   const limit = questions?.length - 1;
 
   const reset = () => {
     setCode('');
     setSuccess(false);
     setError(false);
+    setOutput('');
   };
 
   const processor = unified()
@@ -66,23 +69,7 @@ const QuestionBox = () => {
       {/* <ProgressBar /> */}
       <div className="question-container">
         <h3 className="question-title">{currentQuestion.title}</h3>
-        <div className="question-description">
-          {sanitizedHtml}
-          <br />
-          NOTE:
-          <br />
-          Please log the result of your function execution in the console.
-          <br />
-          See the example:
-          <br />
-          const result = myFunction();
-          <br />
-          console.log(result);
-          <br />
-          <br />
-          This ensures tracking of function outputs for validation purposes.
-        </div>
-        <div></div>
+        <div className="question-description">{sanitizedHtml}</div>
       </div>
     </>
   );

@@ -1,10 +1,13 @@
 import React from 'react';
 import './BoxHeader.scss';
 import useWebSocket from '../../Utilities/Hooks/useWebSocket';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
+  CodeErrorAtom,
   CodeInputAtom,
+  CodeSuccessAtom,
   CurrentQuestionIndex,
+  OutputAtom,
   QuestionsAtom,
 } from '../../Atoms/Atoms';
 import LottieControl from '../../Utilities/Lottie/Lottie';
@@ -20,14 +23,13 @@ const BoxHeader = ({
   clickRightArrow = () => {},
   clickLeftArrow = () => {},
 }) => {
-  const { send, loading, token } = useWebSocket();
+  const { send, loading, setLoading, token } = useWebSocket();
   const code = useRecoilValue(CodeInputAtom);
-  const currentQuestionIndex = useRecoilValue(CurrentQuestionIndex);
+  const [currentQuestionIndex, setCurrentQuestionIndex] =
+    useRecoilState(CurrentQuestionIndex);
   const [questions, setQuestions] = useRecoilState(QuestionsAtom);
   const solution = useRecoilValue(CodeInputAtom);
   const length = questions?.length || 0;
-  const nextQuestion = questions[currentQuestionIndex + 1];
-  const prevQuestion = questions[currentQuestionIndex - 1];
 
   const handleRunCode = () => {
     send(
@@ -43,9 +45,17 @@ const BoxHeader = ({
 
   const handleSubmitCode = async () => {
     const id = questions[currentQuestionIndex].id;
-    const response = await submitCode(id, solution);
-    console.log('response >> ', response);
-    setQuestions(response);
+    try {
+      setLoading(true);
+      const response = await submitCode(id, solution);
+      console.log('response >> ', response);
+      setQuestions(response);
+    } catch (error) {
+      console.error(error);
+    }
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   const isLeftDisabled = () => {
@@ -63,7 +73,6 @@ const BoxHeader = ({
       return false;
     }
   };
-
   return (
     <div className="box-header">
       <div className="title">{title}</div>
@@ -76,6 +85,10 @@ const BoxHeader = ({
         <button
           className="box-header-execute-button"
           onClick={handleSubmitCode}
+          disabled={isRightDisabled()}
+          style={{
+            backgroundColor: isRightDisabled() ? 'gray' : '#008529',
+          }}
         >
           {loading ? <LottieControl /> : 'Submit Code'}
         </button>

@@ -17,9 +17,21 @@ export const getQuestions = async () => {
   }
 };
 
-export const submitCode = async (id, solution) => {
+export const submitCode = async (questionId, solution) => {
   try {
-    const response = await axios.post(baseURL + '/submit', { id, solution });
+    const response = await axios.post(baseURL + '/submit', {
+      questionId,
+      solution,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getJdoodleToken = async () => {
+  try {
+    const response = await axios.get(baseURL + '/token');
     return response.data;
   } catch (error) {
     console.error(error);

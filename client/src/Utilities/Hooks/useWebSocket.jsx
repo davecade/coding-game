@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import { CodeErrorAtom, CodeSuccessAtom, OutputAtom } from '../../Atoms/Atoms';
+import { getJdoodleToken } from '../Api/Api';
+
+let userLogExists = false;
 
 const useWebSocket = () => {
   const [socketClient, setSocketClient] = useState(null);
@@ -14,7 +17,7 @@ const useWebSocket = () => {
   useEffect(() => {
     if (!socketClient?.connected) {
       setLoading(false);
-      fetchToken();
+      getNewToken();
     }
   }, [socketClient?.connected]);
 
@@ -27,22 +30,21 @@ const useWebSocket = () => {
         const statusCode = parseInt(message.headers.statusCode);
 
         if (message.body.includes('Token Expired')) {
-          fetchToken();
+          getNewToken();
           return;
         }
 
-        if (statusCode === 201 || statusCode === 204) {
-          return;
+        if (statusCode === 200) {
+          userLogExists = true;
+          setOutput(message.body);
         }
 
         switch (statusCode) {
           case 500:
-            console.log('nad request');
+            console.log('bad request');
             break;
           case 410:
             console.log('server error');
-            break;
-          case 206:
             break;
           case 429:
             console.log('daily limit reached');
@@ -54,7 +56,9 @@ const useWebSocket = () => {
             console.log('Unauthorised request');
             break;
           default:
-            setOutput(message.body);
+            if (!userLogExists) {
+              setOutput('OK to submit. No compile issues found.');
+            }
             if (message.body.toString().toLowerCase().includes('error')) {
               setError(true);
             } else {
@@ -87,9 +91,9 @@ const useWebSocket = () => {
 
   const send = async (...args) => {
     if (!socketClient?.connected) {
-      await fetchToken();
+      await getNewToken();
       setError(true);
-      setOutput('Something went wrong.. Please try again.')
+      setOutput('Something went wrong.. Please try again.');
       return;
     }
 
@@ -97,12 +101,13 @@ const useWebSocket = () => {
     setSuccess(false);
     setOutput('');
     setLoading(true);
+    userLogExists = false;
     socketClient.send(...args);
   };
 
-  const fetchToken = async () => {
-    const res = await axios.get('http://localhost:3001/token');
-    setToken(res.data);
+  const getNewToken = async () => {
+    const token = await getJdoodleToken();
+    setToken(token);
   };
 
   return {
@@ -112,7 +117,8 @@ const useWebSocket = () => {
     socketClient,
     setSocketClient,
     loading,
-    fetchToken,
+    setLoading,
+    getNewToken,
   };
 };
 
