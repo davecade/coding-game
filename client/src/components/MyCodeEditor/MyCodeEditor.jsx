@@ -5,14 +5,28 @@ import Editor from 'react-simple-code-editor';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript'; // Or whatever language you want to support
-import { useRecoilState } from 'recoil';
-import { CodeInputAtom } from '../../Atoms/Atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  CodeInputAtom,
+  CurrentQuestionIndex,
+  QuestionsAtom,
+} from '../../Atoms/Atoms';
 import useWebSocket from '../../Utilities/Hooks/useWebSocket';
 
 function MyCodeEditor() {
   const [language, setLanguage] = useState('');
   const [code, setCode] = useRecoilState(CodeInputAtom);
+  const currentIndex = useRecoilValue(CurrentQuestionIndex);
+  const questions = useRecoilValue(QuestionsAtom);
+  const currentQuestion = questions[currentIndex] || {};
+  const hasSavedSolution = !!currentQuestion.solution;
   const { send } = useWebSocket();
+
+  useEffect(() => {
+    if (hasSavedSolution) {
+      setCode(currentQuestion.solution);
+    }
+  }, [currentIndex]);
 
   const handleChange = (newCode) => {
     setCode(newCode);

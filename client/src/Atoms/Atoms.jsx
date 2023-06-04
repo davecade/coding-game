@@ -7,7 +7,8 @@ const keys = {
   SOCKET_CLIENT: '@atoms_socket_client',
   TOKEN_ATOM: '@atoms_token',
   CODE_ERROR: '@atoms_code_error',
-  CODE_SUCCESS: '@atoms_code_success'
+  CODE_SUCCESS: '@atoms_code_success',
+  CURRENT_QUESTION_INDEX: '@atoms_current_question_index',
 };
 
 export const QuestionsAtom = atom({
@@ -33,4 +34,9 @@ export const CodeErrorAtom = atom({
 export const CodeSuccessAtom = atom({
   key: keys.CODE_SUCCESS,
   default: false,
+});
+
+export const CurrentQuestionIndex = atom({
+  key: keys.CURRENT_QUESTION_INDEX,
+  default: 0,
 });

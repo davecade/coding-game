@@ -6,8 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/questions')
-  async getFiveQuestions() {
-    return await this.appService.getFiveQuestions();
+  async getFiveRandomQuestions() {
+    return await this.appService.getFiveRandomQuestions();
   }
 
   @Get('/token')
@@ -15,12 +15,17 @@ export class AppController {
     return this.appService.getToken();
   }
 
-  @Post('/execute')
-  async executeCode(
-    @Body('language') language: string,
-    @Body('script') script: string,
-    @Body('stdin') stdin: string,
-  ) {
-    return this.appService.executeCode(language, script);
+  @Post('/submit')
+  async submitCode(@Body('id') id: number, @Body('solution') solution: string) {
+    return this.appService.submitCode(id, solution);
   }
+
+  // @Post('/execute')
+  // async executeCode(
+  //   @Body('language') language: string,
+  //   @Body('script') script: string,
+  //   @Body('stdin') stdin: string,
+  // ) {
+  //   return this.appService.executeCode(language, script);
+  // }
 }

@@ -16,3 +16,12 @@ export const getQuestions = async () => {
     console.log(e);
   }
 };
+
+export const submitCode = async (id, solution) => {
+  try {
+    const response = await axios.post(baseURL + '/submit', { id, solution });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

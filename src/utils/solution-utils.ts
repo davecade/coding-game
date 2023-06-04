@@ -6,44 +6,24 @@ const solutions = () => {
         nums[pos++] = nums[i];
       }
     }
-    for (i = pos; i < nums.length; i++) {
+    for (let i = pos; i < nums.length; i++) {
       nums[i] = 0;
     }
   };
 
-  const twoSum = (nums, target) => {
-    let hash = {};
-    for (let i = 0; i < nums.length; i++) {
-      const n = nums[i];
-      if (hash[target - n] !== undefined) {
-        return [hash[target - n], i];
-      }
-      hash[n] = i;
-    }
-    return [];
+  const majorityElement = (nums) => {
+    nums.sort((a, b) => a - b);
+    return nums[Math.floor(nums.length / 2)];
   };
 
   const reverseInteger = (x) => {
     const absReversed = Math.abs(x).toString().split('').reverse().join('');
-    if (absReversed > 2 ** 31) return 0;
-    return absReversed * Math.sign(x);
+    if (Number(absReversed) > 2 ** 31) return 0;
+    return Number(absReversed) * Math.sign(x);
   };
 
-  const mergeTwoLists = (l1, l2) => {
-    let mergedHead = { val: -1, next: null },
-      crt = mergedHead;
-    while (l1 && l2) {
-      if (l1.val > l2.val) {
-        crt.next = l2;
-        l2 = l2.next;
-      } else {
-        crt.next = l1;
-        l1 = l1.next;
-      }
-      crt = crt.next;
-    }
-    crt.next = l1 || l2;
-    return mergedHead.next;
+  const containsDuplicate = (nums) => {
+    return nums.sort().some((a, i) => a === nums[i - 1]);
   };
 
   const isPalindrome = (s) => {
@@ -58,13 +38,29 @@ const solutions = () => {
     return s.trim().split(' ').pop().length;
   };
 
-  const reverseLinkedList = (head) => {
-    let [prev, current] = [null, head];
-    while (current) {
-      [current.next, prev, current] = [prev, current, current.next];
+  const reverseOnlyLetters = (s) => {
+    s = s.split('');
+    let start = 0;
+    let end = s.length - 1;
+    const regex = /[a-zA-Z]/g; 
+    while (start < end) {
+        if (s[start].match(regex) === null) {
+            start++; 
+            continue;
+        }
+        if (s[end].match(regex) === null) {
+            end--; 
+            continue;
+        }
+        let tmp = s[start];
+        s[start] = s[end];
+        s[end] = tmp;
+        start++;
+        end--;
     }
-    return prev;
-  };
+    
+    return s.join('');
+};
 
   const missingNumber = (nums) => {
     const n = nums.length;
@@ -108,16 +104,16 @@ const solutions = () => {
   };
 
   return {
-    moveZeroes,
-    twoSum,
-    reverseInteger,
-    mergeTwoLists,
-    isPalindrome,
-    lengthOfLastWord,
-    reverseLinkedList,
-    missingNumber,
-    fibSequence,
-    romanToInt,
+    1: moveZeroes,
+    2: majorityElement,
+    3: reverseInteger,
+    4: containsDuplicate,
+    5: isPalindrome,
+    6: lengthOfLastWord,
+    7: reverseOnlyLetters,
+    8: missingNumber,
+    9: fibSequence,
+    10: romanToInt,
   };
 };
 

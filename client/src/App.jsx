@@ -1,6 +1,5 @@
 import './App.scss';
 import 'prismjs/themes/prism.css';
-import axios from 'axios';
 import MyCodeEditor from './components/MyCodeEditor/MyCodeEditor';
 import React, { useEffect } from 'react';
 import QuestionBox from './components/QuestionBox/QuestionBox';

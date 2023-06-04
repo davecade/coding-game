@@ -22,40 +22,52 @@ const MockDatabase = [
     
         The length of the nums array lies within the range of 1 <= nums.length <= 10^4. The values within the nums array fall within the range of a 32-bit signed integer, i.e., -2^31 <= nums[i] <= 2^31 - 1.
     `,
+    testCases: [
+      [0, 2, 6],
+      [5, 0, 0, 3],
+      [0, 0, 0, 0, 0],
+      [0, 0, 1, 2, 3],
+      [2, 0, 1, 0, 3, 0, 4],
+    ],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 2,
-    title: 'Two Sum',
+    title: 'Majority Element',
     submitted: false,
     description: `
-    Problem Statement:
-    You're provided with an array of integers (nums) and another integer (target). Your task is to find and return the indices of two numbers within nums that together, add up to target.
+    Objective:
+
+    Given an array nums of size n, your task is to find and return the majority element.
     
-    Assumptions:
-        Each input will have precisely one solution.
-        You may not use the same element twice.
-        The answer can be returned in any order. Be sure to print the result.
+    The majority element is defined as the element that appears more than ⌊n / 2⌋ times. You can assume that the majority element always exists in the array.
     
     Examples:
-        Input: nums = [2,7,11,15], target = 9
-
-        Output: [0,1]
-
-        Explanation: nums[0] + nums[1] == 9, hence the result is [0, 1].
-
-        Input: nums = [3,2,4], target = 6
-
-        Output: [1,2]
-
-        Input: nums = [3,3], target = 6
-
-        Output: [0,1]
+    
+        Input: nums = [3,2,3]
+        Output: 3
+        Explanation: In the given array, the element 3 appears twice, which is more than ⌊3 / 2⌋ times.
+    
+        Input: nums = [2,2,1,1,1,2,2]
+        Output: 2
+        Explanation: In the given array, the element 2 appears four times, which is more than ⌊7 / 2⌋ times.
     
     Constraints:
-        The length of nums is between 2 and 10^4.
-        Each integer in nums, as well as the target, can range from -10^9 to 10^9.
-        Only one valid answer exists for each input.
+    
+        The length of the array nums is equal to n (n == nums.length).
+        The value of n falls within the range of 1 <= n <= 5 * 10^4.
+        The values within nums fall within the range of -10^9 <= nums[i] <= 10^9.
     `,
+    testCases: [
+      [5],
+      [3, 3, 3, 3, 3],
+      [2, 2, 2, 1, 1],
+      [1, 1, 2, 2, 2],
+      [2, 1, 2, 1, 2],
+    ],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 3,
@@ -84,37 +96,47 @@ const MockDatabase = [
     The input integer x is restricted to the range of a 32-bit signed integer,
     i.e., -2^31 <= x <= 2^31 - 1.
     `,
+    testCases: [12345, -12345, 1000000015, 0, -1],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 4,
-    title: 'Merge Two Sorted Lists',
+    title: 'Contains Duplicate',
     submitted: false,
     description: `
     Objective:
-    
-    Your task is to implement a function that receives the head nodes of two sorted linked lists, denoted as list1 and list2.
-    
-    The function is required to merge these two lists into a single sorted linked list. This should be achieved by splicing the nodes of the initial two lists together, preserving their original order.
-    
-    The function should then return the head node of the newly merged linked list.
+
+    Given an integer array nums, your task is to determine if any value appears at least twice in the array. Return true if there are any duplicate values, and false if every element in the array is distinct.
     
     Examples:
     
-        Input: list1 = [1,2,4], list2 = [1,3,4]
-        Output: [1,1,2,3,4,4]
+        Input: nums = [1,2,3,1]
+        Output: true
+        Explanation: The array contains the value 1, which appears twice.
     
-        Input: list1 = [], list2 = []
-        Output: []
+        Input: nums = [1,2,3,4]
+        Output: false
+        Explanation: All elements in the array are distinct; there are no duplicate values.
     
-        Input: list1 = [], list2 = [0]
-        Output: [0]
+        Input: nums = [1,1,1,3,3,4,3,2,4,2]
+        Output: true
+        Explanation: The array contains duplicate values: 1, 3, and 4.
     
     Constraints:
     
-        The number of nodes in both list1 and list2 lies within the range of [0, 50].
-        The value of each node (Node.val) is between -100 and 100, inclusive.
-        Both list1 and list2 are sorted in a non-decreasing order.
+        The length of the nums array is within the range of 1 <= nums.length <= 10^5.
+        The values within the nums array fall within the range of -10^9 <= nums[i] <= 10^9.
     `,
+    testCases: [
+      [1, 2, 3, 4, 5],
+      [1, 1, 2, 3, 4],
+      [1, 2, 3, 4, 4],
+      [1, 2, 2, 3, 4, 5, 5],
+      [-1, -1, 0],
+    ],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 5,
@@ -146,6 +168,15 @@ const MockDatabase = [
         The length of the string s falls within the range of 1 <= s.length <= 2 * 10^5.
         The string s only comprises printable ASCII characters.
     `,
+    testCases: [
+      'Able, was I saw Elba',
+      "Madam In Eden, I'm Adam",
+      'Was it a car or a cat I saw?',
+      'Not a Palindrome',
+      '12321',
+    ],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 6,
@@ -178,32 +209,53 @@ const MockDatabase = [
         The string s comprises only English letters and spaces ' '.
         There will be at least one word present in the string s.
     `,
+    testCases: [
+      'The quick brown fox',
+      'jumps over the lazy dog',
+      'Hello, World',
+      '   trailing spaces    ',
+      'singleword',
+    ],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 7,
-    title: 'Reverse Linked List',
+    title: 'Reverse Only Letters',
     submitted: false,
     description: `
     Objective:
 
-    Your task is to create a function that, given the head of a singly linked list, will reverse the order of the list's nodes and return the head of the newly reversed list.
+    Given a string s, your task is to reverse the string based on the following rules:
+    
+        All characters that are not English letters should remain in the same position.
+        All English letters, whether lowercase or uppercase, should be reversed.
+    
+    Return the resulting string after applying these rules.
     
     Examples:
     
-        Input: head = [1,2,3,4,5]
-        Output: [5,4,3,2,1]
+        Input: s = "ab-cd"
+        Output: "dc-ba"
+        Explanation: The English letters 'a' and 'b' are reversed to become 'b' and 'a'. The hyphen '-' remains in the same position.
     
-        Input: head = [1,2]
-        Output: [2,1]
+        Input: s = "a-bC-dEf-ghIj"
+        Output: "j-Ih-gfE-dCba"
+        Explanation: The English letters 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', and 'j' are reversed to 'j', 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', and 'a', respectively. The hyphens '-' remain in the same positions.
     
-        Input: head = []
-        Output: []
+        Input: s = "Test1ng-Leet=code-Q!"
+        Output: "Qedo1ct-eeLg=ntse-T!"
+        Explanation: The English letters 'T', 'e', 's', 't', 'n', 'g', 'L', 'e', 'e', 't', 'c', 'o', 'd', 'e', 'Q', and '!' are reversed to 'Q', 'e', 'd', 'o', '1', 'c', 't', '-', 'e', 'e', 'L', 'g', '=', 'n', 't', 's', 'e', '-', 'T', and '!', respectively. The numbers and symbols remain in the same positions.
     
     Constraints:
     
-        The number of nodes in the list lies within the range of [0, 5000].
-        The value of each node (Node.val) is within the range of -5000 <= Node.val <= 5000.
+        The length of the string s is within the range of 1 <= s.length <= 100.
+        The ASCII values of the characters in s fall within the range [33, 122].
+        The string s does not contain the characters '"' or '\'.
     `,
+    testCases: ['A-B-C', '!@#$%^&*()', 'hElLo,123', 'aBcDe-FgHi', '1tEsT2'],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 8,
@@ -211,7 +263,7 @@ const MockDatabase = [
     submitted: false,
     description: `
     Objective:
-
+  
     Given an array nums of n distinct numbers within the range [0, n], your task is to write a function that returns the solitary number within this range that is absent from the array.
     
     Examples:
@@ -235,6 +287,15 @@ const MockDatabase = [
         Each element in nums falls within the range of 0 <= nums[i] <= n.
         All numbers within nums are unique.
     `,
+    testCases: [
+      [0, 1, 3],
+      [0, 1, 2, 3, 5],
+      [7, 8, 1, 2, 0, 3, 5, 6],
+      [0],
+      [0, 2],
+    ],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 9,
@@ -242,7 +303,7 @@ const MockDatabase = [
     submitted: false,
     description: `
     Objective:
-
+  
     The Fibonacci numbers, represented as F(n), constitute a sequence known as the Fibonacci sequence. Each number in the sequence is the sum of the two preceding numbers, beginning with 0 and 1, i.e.,
     
         F(0) = 0, F(1) = 1
@@ -268,6 +329,9 @@ const MockDatabase = [
     
         The input n is within the range of 0 <= n <= 30.
     `,
+    testCases: [0, 1, 10, 20, 30],
+    solution: '',
+    isSolutionCorrect: false,
   },
   {
     id: 10,
@@ -275,7 +339,7 @@ const MockDatabase = [
     submitted: false,
     description: `
     Objective:
-
+  
     Roman numerals employ seven different symbols: I, V, X, L, C, D, and M, each with different corresponding values.
     
     Symbol-Value Pair:
@@ -317,6 +381,9 @@ const MockDatabase = [
         s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
         It is guaranteed that s is a valid Roman numeral in the range [1, 3999].
     `,
+    testCases: ['IV', 'XL', 'MMMCMXCIX', 'MDCCLXXVI', 'DCCCXC'],
+    solution: '',
+    isSolutionCorrect: false,
   },
 ];
 

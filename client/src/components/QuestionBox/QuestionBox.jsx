@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './QuestionBox.scss';
-import { useRecoilValue } from 'recoil';
-import { QuestionsAtom } from '../../Atoms/Atoms';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  CodeErrorAtom,
+  CodeInputAtom,
+  CodeSuccessAtom,
+  CurrentQuestionIndex,
+  QuestionsAtom,
+} from '../../Atoms/Atoms';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypereact from 'rehype-react';
 import BoxHeader from '../BoxHeader/BoxHeader';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 const QuestionBox = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useRecoilState(CurrentQuestionIndex);
   const questions = useRecoilValue(QuestionsAtom);
+  const setCode = useSetRecoilState(CodeInputAtom);
+  const setSuccess = useSetRecoilState(CodeSuccessAtom);
+  const setError = useSetRecoilState(CodeErrorAtom);
   const currentQuestion = questions[currentIndex] || {};
-  const limit = questions.length - 1;
+  const limit = questions?.length - 1;
+
+  const reset = () => {
+    setCode('');
+    setSuccess(false);
+    setError(false);
+  };
 
   const processor = unified()
     .use(remarkParse)
@@ -28,12 +44,14 @@ const QuestionBox = () => {
   const handleClickedRightArrow = () => {
     if (currentIndex < limit) {
       setCurrentIndex((prev) => prev + 1);
+      reset();
     }
   };
 
   const handleClickedLeftArrow = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
+      reset();
     }
   };
 
@@ -45,6 +63,7 @@ const QuestionBox = () => {
         clickRightArrow={handleClickedRightArrow}
         clickLeftArrow={handleClickedLeftArrow}
       />
+      {/* <ProgressBar /> */}
       <div className="question-container">
         <h3 className="question-title">{currentQuestion.title}</h3>
         <div className="question-description">

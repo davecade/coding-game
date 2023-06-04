@@ -1,11 +1,16 @@
 import React from 'react';
 import './BoxHeader.scss';
 import useWebSocket from '../../Utilities/Hooks/useWebSocket';
-import { useRecoilValue } from 'recoil';
-import { CodeInputAtom } from '../../Atoms/Atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  CodeInputAtom,
+  CurrentQuestionIndex,
+  QuestionsAtom,
+} from '../../Atoms/Atoms';
 import LottieControl from '../../Utilities/Lottie/Lottie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { submitCode } from '../../Utilities/Api/Api';
 
 const BoxHeader = ({
   title = '',
@@ -15,8 +20,14 @@ const BoxHeader = ({
   clickRightArrow = () => {},
   clickLeftArrow = () => {},
 }) => {
-  const { send, loading, token, socketClient } = useWebSocket();
+  const { send, loading, token } = useWebSocket();
   const code = useRecoilValue(CodeInputAtom);
+  const currentQuestionIndex = useRecoilValue(CurrentQuestionIndex);
+  const [questions, setQuestions] = useRecoilState(QuestionsAtom);
+  const solution = useRecoilValue(CodeInputAtom);
+  const length = questions?.length || 0;
+  const nextQuestion = questions[currentQuestionIndex + 1];
+  const prevQuestion = questions[currentQuestionIndex - 1];
 
   const handleRunCode = () => {
     send(
@@ -30,7 +41,28 @@ const BoxHeader = ({
     );
   };
 
-  const handleExecuteCode = () => {};
+  const handleSubmitCode = async () => {
+    const id = questions[currentQuestionIndex].id;
+    const response = await submitCode(id, solution);
+    console.log('response >> ', response);
+    setQuestions(response);
+  };
+
+  const isLeftDisabled = () => {
+    if (currentQuestionIndex === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const isRightDisabled = () => {
+    if (currentQuestionIndex === length - 1) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <div className="box-header">
@@ -43,17 +75,31 @@ const BoxHeader = ({
       {addExecute ? (
         <button
           className="box-header-execute-button"
-          onClick={handleExecuteCode}
+          onClick={handleSubmitCode}
         >
           {loading ? <LottieControl /> : 'Submit Code'}
         </button>
       ) : null}
       {addArrows ? (
         <div className="arrows-container">
-          <button className="arrow-left" onClick={clickLeftArrow}>
+          <button
+            className="arrow-left"
+            disabled={isLeftDisabled()}
+            style={{
+              backgroundColor: isLeftDisabled() ? 'gray' : '#257dbc',
+            }}
+            onClick={clickLeftArrow}
+          >
             <FontAwesomeIcon icon={faArrowLeft} size="2x" />
           </button>
-          <button className="arrow-right" onClick={clickRightArrow}>
+          <button
+            className="arrow-right"
+            onClick={clickRightArrow}
+            disabled={isRightDisabled()}
+            style={{
+              backgroundColor: isRightDisabled() ? 'gray' : '#257dbc',
+            }}
+          >
             <FontAwesomeIcon icon={faArrowRight} size="2x" />
           </button>
         </div>
