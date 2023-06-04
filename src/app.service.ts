@@ -73,6 +73,8 @@ export class AppService {
   }
 
   async getToken() {
+    console.log('ID: ', this.configService.get('JDOODLE_CLIENT_ID'));
+    console.log('SECRET: ', this.configService.get('JDOODLE_CLIENT_SECRET'));
     const response = await axios.post('https://api.jdoodle.com/v1/auth-token', {
       clientId: this.configService.get('JDOODLE_CLIENT_ID'),
       clientSecret: this.configService.get('JDOODLE_CLIENT_SECRET'),
