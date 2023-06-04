@@ -14,7 +14,7 @@ export class AppController {
   @Get('/token')
   async getToken(@Res() res): Promise<void> {
     const token = await this.appService.getToken();
-    return res.status(HttpStatus.OK).json(token);
+    return token;
   }
 
   @Post('/submit')
