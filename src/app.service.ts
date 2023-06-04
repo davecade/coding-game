@@ -16,13 +16,16 @@ export class AppService {
   ) {}
 
   private testAllCases(testCases: any, userCode: string, questionId: number) {
+    const validSolution = solutions()[questionId];
+    const expectedResults = [];
+
     try {
-      const validSolution = solutions()[questionId];
       const userFunctionName = this.extractFunctionName(userCode);
       const vm = new VM();
       vm.run(userCode);
 
       let failedCases = [];
+      let userResults = [];
       let hasPassed = true;
 
       for (let i = 0; i < testCases.length; i++) {
@@ -35,17 +38,25 @@ export class AppService {
         if (userOutput !== expectedOutput) {
           hasPassed = false;
           failedCases.push(input);
+          userResults.push(userOutput);
+          expectedResults.push(expectedOutput);
         }
       }
       return {
         hasPassed,
         failedCases,
+        userResults,
+        expectedResults: hasPassed
+          ? testCases.map((input) => validSolution(input))
+          : expectedResults,
       };
     } catch (e) {
       console.log('Execution failed');
       return {
         hasPassed: false,
         failedCases: [...testCases],
+        userResults: ['execution failed'],
+        expectedResults: testCases.map((input) => validSolution(input)),
       };
     }
   }
@@ -104,6 +115,8 @@ export class AppService {
       solution: solution,
       isSolutionCorrect: executionResult.hasPassed,
       failedCases: executionResult.failedCases,
+      userResults: executionResult.userResults,
+      expectedResults: executionResult.expectedResults,
     };
     await this.appRepo.updateQuestion(questionId, payload);
     return this.appRepo.getSelectedQuestions();

@@ -1,13 +1,10 @@
 import React from 'react';
 import './BoxHeader.scss';
 import useWebSocket from '../../Utilities/Hooks/useWebSocket';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
-  CodeErrorAtom,
   CodeInputAtom,
-  CodeSuccessAtom,
   CurrentQuestionIndex,
-  OutputAtom,
   QuestionsAtom,
 } from '../../Atoms/Atoms';
 import LottieControl from '../../Utilities/Lottie/Lottie';
@@ -25,8 +22,7 @@ const BoxHeader = ({
 }) => {
   const { send, loading, setLoading, token } = useWebSocket();
   const code = useRecoilValue(CodeInputAtom);
-  const [currentQuestionIndex, setCurrentQuestionIndex] =
-    useRecoilState(CurrentQuestionIndex);
+  const currentQuestionIndex = useRecoilValue(CurrentQuestionIndex);
   const [questions, setQuestions] = useRecoilState(QuestionsAtom);
   const solution = useRecoilValue(CodeInputAtom);
   const length = questions?.length || 0;
@@ -85,10 +81,6 @@ const BoxHeader = ({
         <button
           className="box-header-execute-button"
           onClick={handleSubmitCode}
-          disabled={isRightDisabled()}
-          style={{
-            backgroundColor: isRightDisabled() ? 'gray' : '#008529',
-          }}
         >
           {loading ? <LottieControl /> : 'Submit Code'}
         </button>

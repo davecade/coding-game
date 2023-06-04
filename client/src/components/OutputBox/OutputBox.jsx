@@ -34,6 +34,11 @@ const OutputBox = () => {
           {currentQuestion.testCases.map((testCase, i) => (
             <p key={i}>{`[${testCase.toString()}] - passed`}</p>
           ))}
+          <br></br>
+          <p>Received output:</p>
+          {currentQuestion.expectedResults.map((result, i) => (
+            <p key={i}>{result}</p>
+          ))}
         </div>
       );
       setOutput(results);
@@ -47,6 +52,16 @@ const OutputBox = () => {
           <p>Test cases:</p>
           {currentQuestion.failedCases.map((testCase, i) => (
             <p key={i}>{`[${testCase.toString()}] - failed`}</p>
+          ))}
+          <br></br>
+          <p style={{ fontWeight: 'bold' }}>Your output:</p>
+          {currentQuestion.userResults.map((result, i) => (
+            <p key={i}>{result}</p>
+          ))}
+          <br></br>
+          <p style={{ fontWeight: 'bold' }}>Expected output:</p>
+          {currentQuestion.expectedResults.map((result, i) => (
+            <p key={i}>{result}</p>
           ))}
         </div>
       );

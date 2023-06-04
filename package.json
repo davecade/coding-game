@@ -20,7 +20,8 @@
     "start:prod": "node dist/main",
     "build": "npm run build:client && nest build",
     "build:client": "cd client && npm install && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "install:both": "npm install && cd client && npm install"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

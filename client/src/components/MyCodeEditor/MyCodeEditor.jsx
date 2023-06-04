@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './MyCodeEditor.scss';
-import axios from 'axios';
 import Editor from 'react-simple-code-editor';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-clike';
