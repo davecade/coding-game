@@ -43,7 +43,9 @@ This endpoint interacts with the JDoodle API to request a token. This token is e
 
 This endpoint is used for submitting users' code for execution. It communicates with an underlying service to execute the code, validate it, and then return the results. This provides users with feedback on the correctness of their submitted code.
 
-## Code Examples
+## Technical Challenges
+1. **Code Compilation:** Finding an efficient and safe way to compile the user's code input along with test cases posed a challenge.
+
 
 ## Planned Improvements
 1. **Language Expansion**: I am planning to support more programming languages. This expansion will cater to a diverse range of coding needs, broadening our user base.
@@ -53,6 +55,8 @@ This endpoint is used for submitting users' code for execution. It communicates 
 3. **User Authentication**: Implementing user authentication, coupled with a MongoDB database to enhance data management efficiency.
 
 4. **JWT Tokens**: Will integrating JWT tokens to elevate the security standards of the API requests.
+
+5. **Testing**: Planning toa dd test coverage, and introduce automated testing. This will include unit tests for each component to ensure the system works correctly as a whole. 
 
 ## Contact Information
 For further inquiries, please reach out to me at `dave.cadelina@outlook.com`.
