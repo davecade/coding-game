@@ -77,32 +77,37 @@ const MockDatabase = [
   },
   {
     id: 3,
-    title: 'Reverse Integer',
+    title: 'Reverse String',
     submitted: false,
     description: `
     Objective:
+
+    Your task is to write a function that reverses a string. The input string is given as an array of characters s.
     
-    Develop a function that accepts a 32-bit signed integer, x, and returns the value of x with its digits in reversed order. If the operation of reversing the digits leads to a value outside of the range for a signed 32-bit integer, namely, between -2^31 and 2^31 - 1, the function should return 0 instead.
-    
-    Please note that your programming environment does not permit the storage of 64-bit integers, whether they are signed or unsigned.
+    The function should modify the input array in-place, using O(1) extra memory.
     
     Examples:
     
-        Input: x = 123
-        Output: 321
+        Input: s = ["h","e","l","l","o"]
+        Output: ["o","l","l","e","h"]
+        Explanation: The string "hello" is reversed to "olleh".
     
-        Input: x = -123
-        Output: -321
-    
-        Input: x = 120
-        Output: 21
+        Input: s = ["H","a","n","n","a","h"]
+        Output: ["h","a","n","n","a","H"]
+        Explanation: The string "Hannah" is reversed to "hannaH".
     
     Constraints:
     
-    The input integer x is restricted to the range of a 32-bit signed integer,
-    i.e., -2^31 <= x <= 2^31 - 1.
+        The length of the input string s is within the range of 1 <= s.length <= 10^5.
+        Each character s[i] is a printable ASCII character.
     `,
-    testCases: [12345, -12345, 1000000015, 0, -1],
+    testCases: [
+      ['h', 'e', 'l', 'l', 'o'],
+      ['H', 'a', 'n', 'n', 'a', 'h'],
+      ['a'],
+      ['A', 'B', 'C', 'D', 'E'],
+      ['1', '2', '3', '4', '5'],
+    ],
     failedCases: [],
     userResults: [],
     expectedResults: [],

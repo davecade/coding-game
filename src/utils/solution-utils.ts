@@ -17,10 +17,16 @@ const solutions = () => {
     return nums[Math.floor(nums.length / 2)];
   };
 
-  const reverseInteger = (x) => {
-    const absReversed = Math.abs(x).toString().split('').reverse().join('');
-    if (Number(absReversed) > 2 ** 31) return 0;
-    return Number(absReversed) * Math.sign(x);
+  const reverseString = (s) => {
+    let left = 0;
+    let right = s.length - 1;
+
+    while (left <= right) {
+      [s[left], s[right]] = [s[right], s[left]];
+      left++;
+      right--;
+    }
+    return s;
   };
 
   const containsDuplicate = (nums) => {
@@ -107,7 +113,7 @@ const solutions = () => {
   return {
     1: moveZeroes,
     2: majorityElement,
-    3: reverseInteger,
+    3: reverseString,
     4: containsDuplicate,
     5: isPalindrome,
     6: lengthOfLastWord,
