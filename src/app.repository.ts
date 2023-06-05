@@ -11,6 +11,12 @@ export class AppRepository {
     return this.db;
   }
 
+  async resetAllQuestions(): Promise<Question[]> {
+    this.db = [...MockDatabase];
+    this.selectedQuestions = [];
+    return this.db;
+  }
+
   async getSelectedQuestions(): Promise<Question[]> {
     if (this.selectedQuestions.length === 0) {
       this.selectedQuestions = this.db.slice(0, 5);

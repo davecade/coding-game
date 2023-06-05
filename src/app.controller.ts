@@ -26,4 +26,11 @@ export class AppController {
     const result = await this.appService.submitCode(questionId, solution);
     return res.status(HttpStatus.OK).json(result);
   }
+
+  @Post('/resetAll')
+  async resetAllQuestions(@Res() res): Promise<void> {
+    console.log('RESET');
+    const resp = await this.appService.resetAllQuestions();
+    return res.status(HttpStatus.OK).json('Done');
+  }
 }

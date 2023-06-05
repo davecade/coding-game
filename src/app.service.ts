@@ -17,7 +17,7 @@ export class AppService {
 
   private testAllCases(testCases: any, userCode: string, questionId: number) {
     const validSolution = solutions()[questionId];
-    console.log("validSolution", validSolution)
+    console.log('validSolution', validSolution);
     const expectedResults = [];
 
     try {
@@ -67,6 +67,15 @@ export class AppService {
       trimmedFuncString,
     );
     return result ? result[1] : '';
+  }
+
+  private getRandomUniqueIds(numIds: number, maxId: number): Set<number> {
+    const uniqueIds = new Set<number>();
+    while (uniqueIds.size < numIds) {
+      let randomId = Math.floor(Math.random() * maxId) + 1;
+      uniqueIds.add(randomId);
+    }
+    return uniqueIds;
   }
 
   async getRandomQuestions(): Promise<Question[]> {
@@ -122,12 +131,8 @@ export class AppService {
     return this.appRepo.getSelectedQuestions();
   }
 
-  private getRandomUniqueIds(numIds: number, maxId: number): Set<number> {
-    const uniqueIds = new Set<number>();
-    while (uniqueIds.size < numIds) {
-      let randomId = Math.floor(Math.random() * maxId) + 1;
-      uniqueIds.add(randomId);
-    }
-    return uniqueIds;
+  async resetAllQuestions() {
+    const resp = await this.appRepo.resetAllQuestions();
+    return resp;
   }
 }
