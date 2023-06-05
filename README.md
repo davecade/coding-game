@@ -56,7 +56,7 @@ This endpoint is used for submitting users' code for execution. It communicates 
 
 4. **JWT Tokens**: Will integrating JWT tokens to elevate the security standards of the API requests.
 
-5. **Testing**: Planning toa dd test coverage, and introduce automated testing. This will include unit tests for each component to ensure the system works correctly as a whole. 
+5. **Testing**: Planning to add test coverage, and introduce automated testing. This will include unit tests for each component to ensure the system works correctly as a whole. 
 
 ## Contact Information
 For further inquiries, please reach out to me at `dave.cadelina@outlook.com`.
