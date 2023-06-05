@@ -35,7 +35,6 @@ export class AppService {
           `${userFunctionName}(${JSON.stringify(input)})`,
         );
         const expectedOutput = validSolution(input);
-        console.log('expectedOutput', expectedOutput);
         if (userOutput !== expectedOutput) {
           hasPassed = false;
           failedCases.push(input);

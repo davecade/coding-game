@@ -77,37 +77,31 @@ const MockDatabase = [
   },
   {
     id: 3,
-    title: 'Reverse String',
+    title: 'Reverse Vowels of a String',
     submitted: false,
     description: `
     Objective:
 
-    Your task is to write a function that reverses a string. The input string is given as an array of characters s.
+    Given a string s, your task is to reverse only the positions of the vowels in the string and return the modified string.
     
-    The function should modify the input array in-place, using O(1) extra memory.
+    The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lowercase and uppercase.
     
     Examples:
     
-        Input: s = ["h","e","l","l","o"]
-        Output: ["o","l","l","e","h"]
-        Explanation: The string "hello" is reversed to "olleh".
+        Input: s = "hello"
+        Output: "holle"
+        Explanation: The string "hello" has two vowels, 'e' and 'o'. Reversing their positions results in "holle".
     
-        Input: s = ["H","a","n","n","a","h"]
-        Output: ["h","a","n","n","a","H"]
-        Explanation: The string "Hannah" is reversed to "hannaH".
+        Input: s = "leetcode"
+        Output: "leotcede"
+        Explanation: The string "leetcode" has four vowels, 'e', 'o', 'e', and 'e'. Reversing their positions results in "leotcede".
     
     Constraints:
     
-        The length of the input string s is within the range of 1 <= s.length <= 10^5.
-        Each character s[i] is a printable ASCII character.
+        The length of the string s falls within the range of 1 <= s.length <= 3 * 10^5.
+        The string s consists of printable ASCII characters.
     `,
-    testCases: [
-      ['h', 'e', 'l', 'l', 'o'],
-      ['H', 'a', 'n', 'n', 'a', 'h'],
-      ['a'],
-      ['A', 'B', 'C', 'D', 'E'],
-      ['1', '2', '3', '4', '5'],
-    ],
+    testCases: ['hello', 'leetcode', 'aAeEiIoOuU', 'racecar', 'Hello World'],
     failedCases: [],
     userResults: [],
     expectedResults: [],
