@@ -1,5 +1,15 @@
-import { Controller, Get, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Res,
+  Param,
+  HttpStatus,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { AppService } from './app.service';
+import { SubmitCodeDto } from './models/request/submitCode .dto';
 
 @Controller()
 export class AppController {
@@ -20,17 +30,18 @@ export class AppController {
   @Post('/submit')
   async submitCode(
     @Res() res,
-    @Body('questionId') questionId: number,
-    @Body('solution') solution: string,
+    @Body() { questionId, solution }: SubmitCodeDto,
   ): Promise<void> {
     const result = await this.appService.submitCode(questionId, solution);
     return res.status(HttpStatus.OK).json(result);
   }
 
-  @Post('/resetAll')
-  async resetAllQuestions(@Res() res): Promise<void> {
-    console.log('RESET');
-    const resp = await this.appService.resetAllQuestions();
-    return res.status(HttpStatus.OK).json('Done');
+  @Post('/reset/:id')
+  async resetQuestionById(
+    @Param('id', ParseIntPipe) id: number,
+    @Res() res,
+  ): Promise<void> {
+    const resettedQuestion = await this.appService.resetQuestionById(id);
+    return res.status(HttpStatus.OK).json(resettedQuestion);
   }
 }

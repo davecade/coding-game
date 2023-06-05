@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './BoxHeader.scss';
 import useWebSocket from '../../Utilities/Hooks/useWebSocket';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -9,8 +9,13 @@ import {
 } from '../../Atoms/Atoms';
 import LottieControl from '../../Utilities/Lottie/Lottie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { submitCode } from '../../Utilities/Api/Api';
+import {
+  faArrowRight,
+  faArrowLeft,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons';
+import { resetCode, submitCode } from '../../Utilities/Api/Api';
+import useReset from '../../Utilities/Hooks/useReset';
 
 const BoxHeader = ({
   title = '',
@@ -26,6 +31,7 @@ const BoxHeader = ({
   const [questions, setQuestions] = useRecoilState(QuestionsAtom);
   const solution = useRecoilValue(CodeInputAtom);
   const length = questions?.length || 0;
+  const { resetAll } = useReset();
 
   const handleRunCode = () => {
     send(
@@ -68,13 +74,41 @@ const BoxHeader = ({
       return false;
     }
   };
+
+  const handleResetCode = async () => {
+    const id = questions[currentQuestionIndex].id;
+    try {
+      setLoading(true);
+      const response = await resetCode(id);
+      setQuestions((prev) =>
+        prev.map((question) =>
+          response.id === question.id ? response : question,
+        ),
+      );
+      resetAll();
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="box-header">
       <div className="title">{title}</div>
       {addRun ? (
-        <button className="box-header-run-button" onClick={handleRunCode}>
-          {loading ? <LottieControl /> : 'Run Code'}
-        </button>
+        <div className="box-header-undo-button">
+          <button className="undo-arrow-left" onClick={handleResetCode}>
+            {loading ? (
+              <LottieControl />
+            ) : (
+              <FontAwesomeIcon icon={faUndo} size="2x" />
+            )}
+          </button>
+
+          <button className="box-header-run-button" onClick={handleRunCode}>
+            {loading ? <LottieControl /> : 'Run Code'}
+          </button>
+        </div>
       ) : null}
       {addExecute ? (
         <button

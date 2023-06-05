@@ -20,7 +20,7 @@ const OutputBox = () => {
 
   useEffect(() => {
     if (currentQuestion.submitted) {
-      setTimeout(() => displayResults(), 1000);
+      displayResults();
     }
   }, [currentIndex, questions]);
 

@@ -9,17 +9,35 @@
     padding: 1rem;
   }
 
-  .box-header-run-button {
-    background-color: #0046c7;
-    color: #ffffff;
-    padding: 0 1rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 7rem;
+  .box-header-undo-button {
+    .undo-arrow-left {
+      background-color: #02203c;
+      color: #ffffff;
+      height: 100%;
+      width: 4rem;
+      border: none;
+      margin-right: 0.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
 
-    &:hover {
-      opacity: 0.8;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .box-header-run-button {
+      background-color: #0046c7;
+      color: #ffffff;
+      padding: 0 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 7rem;
+      height: 100%;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 

@@ -17,7 +17,6 @@ export class AppService {
 
   private testAllCases(testCases: any, userCode: string, questionId: number) {
     const validSolution = solutions()[questionId];
-    console.log('validSolution', validSolution);
     const expectedResults = [];
 
     try {
@@ -131,8 +130,12 @@ export class AppService {
     return this.appRepo.getSelectedQuestions();
   }
 
-  async resetAllQuestions() {
-    const resp = await this.appRepo.resetAllQuestions();
-    return resp;
+  async resetQuestionById(questionId) {
+    const question = await this.appRepo.getInitialQuestionById(questionId);
+    const questionResetted = await this.appRepo.updateQuestion(
+      questionId,
+      question,
+    );
+    return questionResetted;
   }
 }

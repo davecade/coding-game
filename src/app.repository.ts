@@ -28,6 +28,13 @@ export class AppRepository {
     return this.db.find((question: Question) => question.id === id);
   }
 
+  async getInitialQuestionById(id: number): Promise<Question | undefined> {
+    const foundQuestion = MockDatabase.find((question: Question) => {
+      return question.id === id;
+    });
+    return foundQuestion;
+  }
+
   async updateAllQuestions(newQuestions: Question[]): Promise<void> {
     this.db = [...newQuestions];
   }
@@ -57,7 +64,6 @@ export class AppRepository {
     this.selectedQuestions = this.selectedQuestions.map((question: Question) =>
       question.id === updatedQuestion.id ? updatedQuestion : question,
     );
-
     return updatedQuestion;
   }
 }

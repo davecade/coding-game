@@ -37,3 +37,12 @@ export const getJdoodleToken = async () => {
     console.error(error);
   }
 };
+
+export const resetCode = async (id) => {
+  try {
+    const response = await axios.post(baseURL + '/reset' + `/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
