@@ -40,7 +40,7 @@ export const getJdoodleToken = async () => {
 
 export const resetCode = async (id) => {
   try {
-    const response = await axios.post(baseURL + '/reset' + `/${id}`);
+    const response = await axios.patch(baseURL + '/reset' + `/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);

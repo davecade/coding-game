@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Body,
   Res,
   Param,
@@ -36,12 +37,13 @@ export class AppController {
     return res.status(HttpStatus.OK).json(result);
   }
 
-  @Post('/reset/:id')
+  @Patch('/reset/:id')
   async resetQuestionById(
     @Param('id', ParseIntPipe) id: number,
     @Res() res,
   ): Promise<void> {
     const resettedQuestion = await this.appService.resetQuestionById(id);
+    console.log('response > ', resettedQuestion);
     return res.status(HttpStatus.OK).json(resettedQuestion);
   }
 }
