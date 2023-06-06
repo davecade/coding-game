@@ -43,7 +43,6 @@ export class AppController {
     @Res() res,
   ): Promise<void> {
     const resettedQuestion = await this.appService.resetQuestionById(id);
-    console.log('response > ', resettedQuestion);
     return res.status(HttpStatus.OK).json(resettedQuestion);
   }
 }
