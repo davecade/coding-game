@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AceEditor from 'react-ace';
 import './MyCodeEditor.scss';
+import 'brace/mode/javascript';
+import 'brace/theme/monokai';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   CodeInputAtom,
