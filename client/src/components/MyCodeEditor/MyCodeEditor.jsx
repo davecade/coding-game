@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import AceEditor from 'react-ace';
 import './MyCodeEditor.scss';
-import Editor from 'react-simple-code-editor';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript'; // Or whatever language you want to support
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   CodeInputAtom,
@@ -34,34 +31,35 @@ function MyCodeEditor() {
     });
   };
 
-  const lineNumbers = code
-    .split('\n')
-    .map((_, i) => i + 1)
-    .join('\n');
-
-  const highlight = (code) => {
-    return Prism.highlight(code, Prism.languages.javascript, 'javascript');
-  };
-
   return (
     <div className="code-editor-container">
-      <textarea className="line-number" value={lineNumbers} readOnly />
-      <Editor
-        className="code-editor"
-        value={code}
-        onValueChange={handleChange}
-        highlight={highlight}
-        padding={10}
+      <AceEditor
+        mode="javascript"
+        theme="monokai"
+        name="UNIQUE_ID_OF_DIV"
+        editorProps={{ $blockScrolling: true }}
+        showPrintMargin={false}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+          showLineNumbers: true,
+          tabSize: 2,
+        }}
         style={{
+          height: '100%',
+          width: '100%',
           fontFamily: '"Fira code", "Fira Mono", monospace',
           fontSize: 12,
           borderWidth: '0',
           lineHeight: '20px',
           width: '100%',
-          minHeight: '10rem',
           color: '#FFFFFF',
           borderRadius: 4,
         }}
+        className="code-editor"
+        value={code}
+        onChange={handleChange}
       />
     </div>
   );

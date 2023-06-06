@@ -28,6 +28,14 @@
     width: 100%;
     color: #ffffff;
     border-radius: 4;
+
+    .ace_scroller,
+    .ace_content,
+    .ace_gutter,
+    .ace_gutter-cell,
+    .ace_active-line {
+      background-color: #001528 !important;
+    }
   }
 
   .token {

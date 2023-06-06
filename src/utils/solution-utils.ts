@@ -17,7 +17,7 @@ const solutions = () => {
     return nums[Math.floor(nums.length / 2)];
   };
 
-  var reverseVowels = function (s) {
+  const reverseVowels = (s) => {
     const VOWELS = {
       a: 1,
       e: 1,
