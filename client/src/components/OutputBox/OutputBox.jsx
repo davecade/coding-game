@@ -36,9 +36,9 @@ const OutputBox = () => {
           ))}
           <br></br>
           <p>Received output:</p>
-          {currentQuestion.expectedResults.map((result, i) => (
-            <p key={i}>{result}</p>
-          ))}
+          {currentQuestion.expectedResults.map((result, i) => {
+            return <p key={i}>{result.toString()}</p>;
+          })}
         </div>
       );
       setOutput(results);

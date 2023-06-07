@@ -34,11 +34,11 @@ export class AppService {
           `${userFunctionName}(${JSON.stringify(input)})`,
         );
         const expectedOutput = validSolution(input);
-        if (userOutput !== expectedOutput) {
+        if (JSON.stringify(userOutput) !== JSON.stringify(expectedOutput)) {
           hasPassed = false;
           failedCases.push(input);
-          userResults.push(userOutput);
-          expectedResults.push(expectedOutput);
+          userResults.push(JSON.stringify(userOutput));
+          expectedResults.push(JSON.stringify(expectedOutput));
         }
       }
       return {
